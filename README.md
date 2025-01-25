@@ -1,11 +1,13 @@
-# Technical Documentation Extractor
+# Tech Doc Extractor
 
-A Python tool that extracts and processes technical documentation from websites using Firecrawl.
+A Python tool for crawling and extracting technical documentation using Firecrawl API.
 
 ## Features
 
-- Extracts documentation content from websites
-- Preserves code examples and formatting
+- Crawls technical documentation sites
+- Converts pages to clean markdown format
+- Handles pagination and depth control
+- (Attempts to) Saves documents with meaningful filenames
 
 ## Installation
 
@@ -15,49 +17,69 @@ git clone https://github.com/celtiberi/tech-doc-extractor.git
 cd tech-doc-extractor
 ```
 
-2. Install dependencies:
+2. Create and activate virtual environment:
 ```bash
-pip install -r requirements.txt
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-3. Set up your Firecrawl API key:
+3. Install in development mode:
 ```bash
-export FIRECRAWL_API_KEY='your-api-key'
+pip install -e .
 ```
-Or create a `.env` file with:
+
+## Configuration
+
+Set your Firecrawl API key in a `.env` file:
 ```
-FIRECRAWL_API_KEY=your-api-key
+FIRECRAWL_API_KEY=your_api_key_here
 ```
 
 ## Usage
 
-Basic usage:
+Basic usage example:
 ```python
-from tech_docs_scraper import TechDocScraper
+from tech_doc_extractor import TechDocCrawler
 
-# Initialize scraper
-scraper = TechDocScraper()
+# Initialize crawler
+crawler = TechDocCrawler()
 
-# Extract documentation
-for result in scraper.extract_docs("https://docs.example.com", file_type='md'):
+# Configuration
+config = {
+    'limit': 30,                # Maximum pages to crawl
+    'max_depth': 10,            # Maximum link depth
+    'wait_for': 1000,          # Wait time for JS content (ms)
+    'only_main_content': True,  # Skip headers/footers
+    'formats': ['markdown']     # Output format
+}
+
+# Start crawling
+for result in crawler.crawl_docs("https://docs.example.com", **config):
     if result['status'] == 'completed':
-        print("\nExtraction complete.")
+        page = result['page']
+        print(f"Found: {page.title}")
+        filepath = page.save_to_file()
+        print(f"Saved to: {filepath}")
 ```
 
-## Output
+Documents are saved to the `docs/` directory by default.
 
-Documents are saved to the `docs/` directory with filenames that include:
-- Domain name
-- Path segments
-- URL fragments (if any)
-- Unique hash to prevent collisions
+## TODO
 
-## Requirements
+- [ ] Add support for GitHub repositories and GitHub Pages
+  - Need better path filtering
+  - Smarter link following rules
+  - Domain/subdomain restrictions
+  - Content relevance detection
+  - Post processing with AI to remove irrelevant content (md-summarizer could work for this)
 
-- Python 3.7+
-- Firecrawl API key
-- Required packages (see requirements.txt)
+## Testing
+
+Run tests with pytest:
+```bash
+pytest tests/
+```
 
 ## License
 
-MIT 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
