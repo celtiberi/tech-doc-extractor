@@ -66,12 +66,12 @@ Documents are saved to the `docs/` directory by default.
 
 ## TODO
 
-- [ ] Add support for GitHub repositories and GitHub Pages
-  - Need better path filtering
-  - Smarter link following rules
-  - Domain/subdomain restrictions
-  - Content relevance detection
-  - Post processing with AI to remove irrelevant content (md-summarizer could work for this)
+ - Add support for GitHub repositories and GitHub Pages
+ - Need better path filtering
+ - Smarter link following rules
+ - Domain/subdomain restrictions
+ - Content relevance detection
+ - Post processing with AI to remove irrelevant content (md-summarizer could work for this)
 
 ## Testing
 
