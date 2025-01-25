@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tech-doc-extractor"
+version = "0.1.0"
+dependencies = [
+    "firecrawl",
+    "python-slugify",
+    "python-dotenv",
+    "pydantic>=2.0.0"
+]
+requires-python = ">=3.7"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["tech_doc_extractor"] 

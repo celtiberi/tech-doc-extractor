@@ -21,7 +21,7 @@ class DocumentItem(BaseModel):
 class TechDocSchema(BaseModel):
     documentation: List[DocumentItem]
 
-class TechDocScraper:
+class TechDocExtractor:
     """Extracts technical documentation content using Firecrawl."""
     
     DEFAULT_FILE_TYPE = "txt"

@@ -1,12 +1,12 @@
 from dotenv import load_dotenv
-from tech_docs_scraper import TechDocScraper, DocumentItem, TechDocSchema
+from tech_doc_extractor import TechDocExtractor, DocumentItem, TechDocSchema
 import time
 
 # Load environment variables from .env
 load_dotenv()
 
 # Initialize the scraper
-scraper = TechDocScraper()
+scraper = TechDocExtractor()
 
 # Start extraction and monitor progress
 print("Starting documentation extraction...")

@@ -1,4 +1,7 @@
 .cursorrules
+.notes
+/pickled
+/docs
 # Python
 __pycache__/
 *.py[cod]
